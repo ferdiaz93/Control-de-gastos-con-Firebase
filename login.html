@@ -15,11 +15,11 @@
     <link rel="icon" href="image/favicon.png" type="image/png" />
   </head>
   <body>
-    <div class="background">
+    <div class="login-background">
       <div class="container p-4">
         <div class="row">
           <div class="col-md-4 offset-md-4">
-            <form class="signup-form" id="signup-form">
+            <form id="login-form" class="login-form">
               <fieldset class="m-4">
                 <legend class="pt-4">Control de gastos</legend>
                 <div class="form-group">
@@ -27,7 +27,7 @@
                   <input
                     type="email"
                     class="form-control"
-                    id="signup-email"
+                    id="login-email"
                     aria-describedby="emailHelp"
                     placeholder="Enter email"
                     required
@@ -41,20 +41,34 @@
                   <input
                     type="password"
                     class="form-control"
-                    id="signup-password"
+                    id="login-password"
                     placeholder="Password"
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  class="btn btn-outline-success"
+                  class="btn btn-success btn-block"
                   id="btn-inicio-sesion"
                 >
-                  Sign Up
+                  Login
                 </button>
-                <a class="text-success" href="login.html" id="login"
-                  ><p class="mt-2">Have an account? Log in.</p></a
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  id="btn-google"
+                >
+                  Login with Google
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-info btn-block"
+                  id="btn-facebook"
+                >
+                  Login with Facebook
+                </button>
+                <a class="text-success" href="index.html" id="a-registro"
+                  ><p class="mt-2">Don't have an account yet? Sign Up.</p></a
                 >
               </fieldset>
             </form>
@@ -87,6 +101,6 @@
     </script>
     <!-- APP script -->
     <!-- Objet to conect to firebase Authentication-->
-    <script src="js/signup.js"></script>
+    <script src="js/login.js"></script>
   </body>
 </html>
