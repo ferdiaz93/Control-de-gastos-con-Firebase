@@ -69,9 +69,9 @@ class Presupuesto {
     this.restante = Number(presupuesto);
     this.gastos = [];
   }
-  // nuevoGasto(gasto) {
-  //   console.log(gasto);
-  // }
+  nuevoGasto(gasto) {
+    console.log(gasto);
+  }
 }
 
 class UI {
@@ -144,9 +144,9 @@ function agregarGasto(e) {
     ui.mostrarAlerta("Cantidad no válida", "error");
     return;
   }
-  // //Nuevo Object Gasto
-  // const gasto = { nombre, cantidad, id: Date.now() };
+  //Nuevo Object Gasto
+  const gasto = { nombre, cantidad, id: Date.now() };
 
-  // //Nuevo gasto
-  // presupuesto.nuevoGasto(gasto);
+  //Nuevo gasto
+  presupuesto.nuevoGasto(gasto);
 }
