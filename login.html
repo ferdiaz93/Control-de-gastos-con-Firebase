@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control de gastos</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:100,400"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="image/favicon.png" type="image/png" />
+  </head>
+  <body>
+    <div class="login-background">
+      <div class="container p-4">
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+            <form id="login-form" class="login-form">
+              <fieldset class="m-4">
+                <legend class="pt-4">Control de gastos</legend>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="login-email"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                    required
+                  />
+                  <small id="emailHelp" class="form-text text-muted"
+                    >We'll never share your email with anyone else.</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="login-password"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-success btn-block"
+                  id="btn-inicio-sesion"
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  id="btn-google"
+                >
+                  Login with Google
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-info btn-block"
+                  id="btn-facebook"
+                >
+                  Login with Facebook
+                </button>
+                <a class="text-success" href="index.html" id="a-registro"
+                  ><p class="mt-2">Don't have an account yet? Sign Up.</p></a
+                >
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC1ALCbyBD8aQ8pD2VpQIPDgow8u_ggueM",
+        authDomain: "control-gastos-65cb0.firebaseapp.com",
+        projectId: "control-gastos-65cb0",
+        storageBucket: "control-gastos-65cb0.appspot.com",
+        messagingSenderId: "996105184059",
+        appId: "1:996105184059:web:da2967a22e954d7674cd1e",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const fs = firebase.firestore();
+    </script>
+    <!-- APP script -->
+    <!-- Objet to conect to firebase Authentication-->
+    <script src="js/login.js"></script>
+  </body>
+</html>
