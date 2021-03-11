@@ -8,7 +8,6 @@ loginForm.addEventListener("submit", (e) => {
 
   auth.signInWithEmailAndPassword(email, password).then((UserCredential) => {
     //   clear the form
-
     loginForm.remove();
     window.location = "http://127.0.0.1:5500/control-gastos.html";
     console.log("login");
