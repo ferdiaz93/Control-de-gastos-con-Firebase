@@ -71,7 +71,15 @@ class Presupuesto {
   }
   nuevoGasto(gasto) {
     this.gastos = [...this.gastos, gasto];
-    console.log(this.gastos);
+    this.calcularRestante();
+  }
+  calcularRestante() {
+    const dineroGastado = this.gastos.reduce(
+      (total, gasto) => total + gasto.cantidad,
+      0
+    );
+    this.restante = this.presupuesto - dineroGastado;
+    console.log(this.restante);
   }
 }
 
@@ -112,17 +120,17 @@ class UI {
     this.limpiarHtml();
     //  iterando sobre los gastos
     gastos.forEach((gasto) => {
-      const { nombre, cantidad, id } = gasto;
+      const { cantidad, nombre, id } = gasto;
 
       //Creo un nuevo LI
       const nuevoGasto = document.createElement("li");
-      nuevoGasto.classList =
+      nuevoGasto.className =
         "list-group-item d-flex justify-content-between align-items-center";
       nuevoGasto.dataset.id = id;
 
       //Agrego el Html del gasto
       nuevoGasto.innerHTML = `
-      ${nombre}<span class="badge badge-primary badge-pill"> ${cantidad}</span>`;
+      ${nombre}<span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span>`;
 
       //Boton para borrar el gasto
       const deleteButton = document.createElement("button");
@@ -138,6 +146,9 @@ class UI {
     while (gastoListado.firstChild) {
       gastoListado.removeChild(gastoListado.firstChild);
     }
+  }
+  actualizarRestante(restante) {
+    document.querySelector("#restante").textContent = restante;
   }
 }
 
@@ -190,8 +201,9 @@ function agregarGasto(e) {
   ui.mostrarAlerta("Gasto agregado correctamente");
 
   //Imprimir los gastos
-  const { gastos } = presupuesto;
+  const { gastos, restante } = presupuesto;
   ui.agregarGastoListado(gastos);
+  ui.actualizarRestante(restante);
 
   //Reset del form
   formulario.reset();
