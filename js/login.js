@@ -32,8 +32,8 @@ btnGoogle.addEventListener("click", (e) => {
     });
 });
 
-//Facebook Login
-const btnFacebook = document.querySelector("#btn-facebook");
+//Facebook Login / BOTON DESACTIVADO!
+const btnFacebook = (document.querySelector("#btn-facebook").disabled = true);
 btnFacebook.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("facebook login");
