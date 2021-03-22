@@ -16,21 +16,13 @@
     <link rel="icon" href="image/favicon.png" type="image/png" />
     <title>Control de gastos</title>
   </head>
-  <body class="bg-dark">
+  <body class="bg-dark pb-5">
     <nav class="navbar d-flex flex-row-reverse">
-        <div>
-          <a class="nav-link hover-text" id="logout" href="">SALIR</a>
-        </div>
+      <div class="d-flex">
+        <a href="perfil.html" id="perfil" class="nav-link hover-text">PERFIL</a>
+        <a class="nav-link hover-text" id="logout" href="">SALIR</a>
       </div>
     </nav>
-    <div class="container p-5">
-      <div class="row">
-        <div class="col-m-6.offset-md-3">
-          <ul class="list-group" id="users">
-          </ul>
-        </div>
-      </div>
-    </div>
     <div class="container">
       <header>
         <h1 class="text-center m-5">Control de gastos</h1>
@@ -57,6 +49,15 @@
                     class="form-control"
                     id="cantidad"
                     placeholder="Cantidad en $"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="fecha">Fecha:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fecha"
+                    placeholder=""
                   />
                 </div>
 
@@ -91,29 +92,29 @@
         <!--.row-->
       </section>
     </div>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
 
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyC1ALCbyBD8aQ8pD2VpQIPDgow8u_ggueM",
-    authDomain: "control-gastos-65cb0.firebaseapp.com",
-    projectId: "control-gastos-65cb0",
-    storageBucket: "control-gastos-65cb0.appspot.com",
-    messagingSenderId: "996105184059",
-    appId: "1:996105184059:web:da2967a22e954d7674cd1e"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const fs = firebase.firestore();
-</script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC1ALCbyBD8aQ8pD2VpQIPDgow8u_ggueM",
+        authDomain: "control-gastos-65cb0.firebaseapp.com",
+        projectId: "control-gastos-65cb0",
+        storageBucket: "control-gastos-65cb0.appspot.com",
+        messagingSenderId: "996105184059",
+        appId: "1:996105184059:web:da2967a22e954d7674cd1e",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const fs = firebase.firestore();
+    </script>
     <!-- APP script -->
     <!-- Objet to conect to firebase Authentication-->
     <script src="js/control-gastos.js"></script>

@@ -15,51 +15,10 @@ logout.addEventListener("click", (e) => {
   // Si el cierre de la autenticacion ha sido correcto entonces que se muestre por consola 'sign out'
   auth.signOut().then(() => {
     console.log("sign out");
-  });
-});
-
-// Users
-const usersList = document.querySelector("#users");
-// recibe una lista de datos
-const setupUsers = (data) => {
-  // si la lista tiene datos, entonces recorrerlos
-  if (data.length) {
-    let html = "";
-    // por cada documento que este dentro de la lista agrega al html
-    data.forEach((doc) => {
-      const user = doc.data();
-      const li = `
-      <li class="list-group-item list-group-item-action">
-        <h5>${user.name}</h5>
-        <p>${user.mail}</p>
-        </li>
-      `;
-      html += li;
-    });
-    usersList.innerHTML = html;
-  } else {
-    usersList.innerHTML = "<p>Logueate para ver los usuarios</p>";
-  }
-};
-
-// List for auth state changes
-auth.onAuthStateChanged((user) => {
-  // si el objeto user existe significa que el usuario esta logueado
-  if (user) {
-    // si el usurario esta autenticado has una consulta a la coleccion 'user'
-    fs.collection("users")
-      .get()
-      // una vez que obtenga los datos, mostrar el estado actual
-      .then((snapshot) => {
-        // console.log(snapshot.docs);
-        setupUsers(snapshot.docs);
-      });
-  } else {
-    setupUsers([]);
     setTimeout(() => {
       window.location = "http://127.0.0.1:5500/login.html";
     }, 3000);
-  }
+  });
 });
 
 //ENTIDADES
@@ -123,7 +82,7 @@ class UI {
     this.limpiarHtml();
     //  iterando sobre los gastos
     gastos.forEach((gasto) => {
-      const { cantidad, nombre, id } = gasto;
+      const { cantidad, nombre, id, fecha } = gasto;
 
       //Creo un nuevo LI
       const nuevoGasto = document.createElement("li");
@@ -133,7 +92,7 @@ class UI {
 
       //Agrego el Html del gasto
       nuevoGasto.innerHTML = `
-      ${nombre}<span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span>`;
+      ${nombre}<span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span> ${fecha}`;
 
       //Boton para borrar el gasto
       const deleteButton = document.createElement("button");
@@ -210,9 +169,10 @@ function agregarGasto(e) {
   //Leyendo los datos del form
   const nombre = document.getElementById("gasto").value;
   const cantidad = Number(document.getElementById("cantidad").value);
+  const fecha = document.getElementById("fecha").value;
 
   //Validacion
-  if (nombre === "" || cantidad === "") {
+  if (nombre === "" || cantidad === "" || fecha === "") {
     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
     return;
   } else if (cantidad <= 0 || isNaN(cantidad)) {
@@ -220,7 +180,7 @@ function agregarGasto(e) {
     return;
   }
   //Nuevo Object Gasto
-  const gasto = { nombre, cantidad, id: Date.now() };
+  const gasto = { nombre, cantidad, id: Date.now(), fecha };
 
   //Nuevo gasto
   presupuesto.nuevoGasto(gasto);
