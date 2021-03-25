@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:100,400"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="image/favicon.png" type="image/png" />
+    <title>Control de gastos</title>
+  </head>
+  <body class="bg-dark pb-5">
+    <nav class="navbar d-flex flex-row-reverse">
+      <div class="d-flex">
+        <a href="perfil.html" id="perfil" class="nav-link hover-text">PERFIL</a>
+        <a class="nav-link hover-text" id="logout" href="">SALIR</a>
+      </div>
+    </nav>
+    <div class="container">
+      <header>
+        <h1 class="texto-blanco text-center m-5">Control de gastos</h1>
+      </header>
+      <section class="contenido-principal">
+        <div class="row">
+          <div class="col">
+            <div class="contenido primario">
+              <h2 class="text-center">Añade tus gastos aqui</h2>
+              <form id="agregar-gasto" action="#">
+                <div class="form-group">
+                  <label for="gasto">Gasto:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="gasto"
+                    placeholder="Nombre Gasto"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="cantidad">Cantidad:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cantidad"
+                    placeholder="Cantidad en $"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="fecha">Fecha:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fecha"
+                    placeholder=""
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-success">Agregar</button>
+              </form>
+            </div>
+            <!--.contenido-->
+          </div>
+          <!--.col-->
+
+          <div class="col">
+            <div class="contenido secundario">
+              <h2 class="text-center">Listado</h2>
+
+              <div id="gastos">
+                <ul class="list-group"></ul>
+              </div>
+              <div id="presupuesto" class="presupuesto">
+                <div class="alert alert-primary">
+                  <p>Presupuesto: $ <span id="total"></span></p>
+                </div>
+                <div class="restante alert alert-success">
+                  <p>Restante: $ <span id="restante"></span></p>
+                </div>
+              </div>
+              <!--.presupuesto-->
+            </div>
+            <!--.contenido-->
+          </div>
+          <!--.col-->
+        </div>
+        <!--.row-->
+      </section>
+    </div>
+    <footer class="bg-dark">
+      <p class="p-5">Todos los derechos reservados.</p>
+    </footer>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC1ALCbyBD8aQ8pD2VpQIPDgow8u_ggueM",
+        authDomain: "control-gastos-65cb0.firebaseapp.com",
+        projectId: "control-gastos-65cb0",
+        storageBucket: "control-gastos-65cb0.appspot.com",
+        messagingSenderId: "996105184059",
+        appId: "1:996105184059:web:da2967a22e954d7674cd1e",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const fs = firebase.firestore();
+    </script>
+    <!-- APP script -->
+    <!-- Objet to conect to firebase Authentication-->
+    <script src="js/control-gastos.js"></script>
+  </body>
+</html>
