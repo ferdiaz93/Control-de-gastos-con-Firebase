@@ -20,12 +20,13 @@
         <h1 class="pt-4 titulo-principal">Control de gastos</h1>
         <div class="row">
           <div class="col-md-4 offset-md-4">
-            <form id="login-form" class="login-form">
+            <form id="login-form" class="login-form" submit="http://localhost:8000/login" method="POST">
               <fieldset class="m-4">
                 <h2 class="pt-4">Inicia sesión</h2>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email</label>
                   <input
+                    name="email"
                     type="email"
                     class="form-control"
                     id="login-email"
@@ -40,7 +41,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Contraseña</label>
-                  <input
+                  <input name="password"
                     type="password"
                     class="form-control"
                     id="login-password"
