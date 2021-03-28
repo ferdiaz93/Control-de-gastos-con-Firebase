@@ -1,11 +1,11 @@
 .background {
-  background-image: url(/image/background2.jpg);
+  background-image: url(../image/background2.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
 }
 .login-background {
-  background-image: url(/image/login-background.jpg);
+  background-image: url(../image/login-background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -51,7 +51,7 @@ header {
 #gastos {
   margin-bottom: 30px;
 }
-h1 {
+.texto-blanco {
   font-family: "Raleway", sans-serif;
   font-weight: 100;
   color: white;
@@ -62,4 +62,8 @@ h2 {
   color: #052038;
   font-size: 22px;
   margin-bottom: 30px;
+}
+
+.titulo-principal {
+  text-align: center;
 }

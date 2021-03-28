@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Control de gastos</title>
     <!-- Bootstrap CDN -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Raleway:100,400"
       rel="stylesheet"
@@ -17,32 +17,34 @@
   <body>
     <div class="background">
       <div class="container p-4">
+        <h1 class="p-5 pt-4 titulo-principal">Control de gastos</h1>
         <div class="row">
           <div class="col-md-4 offset-md-4">
             <form class="signup-form" id="signup-form">
               <fieldset class="m-4">
-                <legend class="pt-4">Control de gastos</legend>
+                <h2 class="pt-4">Registrate</h2>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
+                  <label for="exampleInputEmail1">Email</label>
                   <input
                     type="email"
                     class="form-control"
                     id="signup-email"
                     aria-describedby="emailHelp"
-                    placeholder="Enter email"
+                    placeholder="Email"
                     required
                   />
                   <small id="emailHelp" class="form-text text-muted"
-                    >We'll never share your email with anyone else.</small
+                    >Nosotros nunca compartiríamos tu direccion de email con
+                    nadie.</small
                   >
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
+                  <label for="exampleInputPassword1">Contraseña</label>
                   <input
                     type="password"
                     class="form-control"
                     id="signup-password"
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     required
                   />
                 </div>
@@ -51,10 +53,10 @@
                   class="btn btn-outline-success"
                   id="btn-inicio-sesion"
                 >
-                  Sign Up
+                  Registrate
                 </button>
                 <a class="text-success" href="login.html" id="login"
-                  ><p class="mt-2">Have an account? Log in.</p></a
+                  ><p class="mt-2">Ya tienes una cuenta? Inicia sesión.</p></a
                 >
               </fieldset>
             </form>
@@ -62,6 +64,9 @@
         </div>
       </div>
     </div>
+    <footer class="bg-dark">
+      <p class="p-5">Todos los derechos reservados.</p>
+    </footer>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
 
