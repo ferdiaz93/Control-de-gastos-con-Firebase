@@ -7,7 +7,11 @@ const usuarioSchema = new Schema ({
         type: String,
         trim: true
     },
-    mail:{
+    email:{
+        type: String,
+        trim: true
+    },
+    password:{
         type: String,
         trim: true
     },
@@ -15,7 +19,7 @@ const usuarioSchema = new Schema ({
         type: Number,
         trim: true
     },
-    gasto:{
+    gastos:{
         type: Array,
         trim: true
     },
@@ -25,4 +29,4 @@ const usuarioSchema = new Schema ({
     }
 });
 
-module.exports = mongoose.model('Usuario', usuarioSchema)
+module.exports = mongoose.model('Usuario', usuarioSchema);

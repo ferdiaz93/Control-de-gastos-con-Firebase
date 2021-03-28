@@ -19,7 +19,11 @@ module.exports = function(){
 
 
     //Rutas de User
-    router.post('/usuarios', usuarioController.nuevoUsuario);
+    //Agrega un nuevo usuario
+    router.post('/registro', usuarioController.nuevoUsuario);
+    //Obtiene un usuario por su Id
+    router.post('/login', usuarioController.loguearUsuario);
+
     return router;
 }
 
