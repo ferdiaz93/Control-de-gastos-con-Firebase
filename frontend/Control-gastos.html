@@ -32,7 +32,7 @@
           <div class="col">
             <div class="contenido primario">
               <h2 class="text-center">Añade tus gastos aqui</h2>
-              <form id="agregar-gasto" action="#">
+              <form id="agregar-gasto" action="http://localhost:8000/gastos" method="POST">
                 <div class="form-group">
                   <label for="gasto">Gasto:</label>
                   <input
@@ -43,12 +43,12 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="cantidad">Cantidad:</label>
+                  <label for="cantidad">Monto:</label>
                   <input
                     type="text"
                     class="form-control"
                     id="cantidad"
-                    placeholder="Cantidad en $"
+                    placeholder="Monto en $"
                   />
                 </div>
                 <div class="form-group">

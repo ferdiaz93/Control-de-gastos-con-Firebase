@@ -135,6 +135,7 @@ class UI {
     if (restante <= 0) {
       ui.mostrarAlerta("El presupuesto se ha agotado", "error");
       formulario.querySelector('button[type="submit"]').disabled = true;
+      restante = 0;
     }
   }
 }
@@ -181,6 +182,8 @@ function agregarGasto(e) {
   }
   //Nuevo Object Gasto
   const gasto = { nombre, cantidad, id: Date.now(), fecha };
+
+  formulario.submit();
 
   //Nuevo gasto
   presupuesto.nuevoGasto(gasto);

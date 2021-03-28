@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const routes = require("./routes/routes");
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars')
-const path = require("path");
+
 
 // Guardo el num de puerto
 const PUERTO = process.env.PORT || 3000;
@@ -32,14 +32,3 @@ app.use("/", routes());
 app.listen(PUERTO, () => {
   console.log(`Se prendio el puerto ${PUERTO}`);
 });
-
-app.engine('.handlebars', exphbs({
-  //carpeta con plantillas
-  defaultLayout: 'main',
-  layoutsDir: path.join(app.get('views'), 'layouts'),
-  partialsDir: path.join(app.get('views'), 'partials'),
-  extname: '.handlebars'
-
-}))
-//establezco cual va a a ser el motor de vistas
-app.set('view engine', '.handlebars');

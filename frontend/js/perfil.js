@@ -25,6 +25,9 @@ const setupUsers = (data) => {
       <li class="list-group-item list-group-item-action">
         <h5>${user.name}</h5>
         <p>${user.mail}</p>
+        <p>${user.Presupuesto}</p>
+        <p>${user.Restante}</p>
+        <p>${user.Gasto}</p>
         </li>
       `;
       html += li;

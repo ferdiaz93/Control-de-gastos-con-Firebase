@@ -13,14 +13,6 @@ const gastoSchema = new Schema ({
     fecha:{
         type: String,
         trim: true,
-    },
-    presupuesto:{
-        type: Number,
-        trim: true,
-    },
-    restante:{
-        type: Number,
-        trim: true
     }
 });
 
