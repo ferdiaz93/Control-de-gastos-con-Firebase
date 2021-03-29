@@ -5,6 +5,19 @@ signupForm.addEventListener("submit", (e) => {
   const email = signupForm["signup-email"].value;
   const password = signupForm["signup-password"].value;
 
+  //Request
+  fetch('http://localhost:8000/registro', {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      password
+    }),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+
   //   create a user with email and password
   auth
     .createUserWithEmailAndPassword(email, password)

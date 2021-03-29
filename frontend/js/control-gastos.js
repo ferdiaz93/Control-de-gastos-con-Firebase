@@ -164,7 +164,7 @@ function preguntarPresupuesto() {
   ui.insertarPresupuesto(presupuesto);
 }
 
-function agregarGasto(e) {
+async function agregarGasto(e) {
   e.preventDefault();
 
   //Leyendo los datos del form
@@ -183,7 +183,19 @@ function agregarGasto(e) {
   //Nuevo Object Gasto
   const gasto = { nombre, cantidad, id: Date.now(), fecha };
 
-  formulario.submit();
+  //Request 
+  await fetch('http://localhost:8000/gastos', {
+    method: 'POST',
+    body: JSON.stringify({
+      nombre,
+      cantidad,
+      fecha
+    }),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
 
   //Nuevo gasto
   presupuesto.nuevoGasto(gasto);
