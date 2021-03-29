@@ -4,7 +4,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const routes = require("./routes/routes");
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 
 
 // Guardo el num de puerto
@@ -24,6 +24,7 @@ mongoose.connect('mongodb://localhost/gastosDB', {
 //Habilitando body-parser extrae la peticion que se envia al server
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(cors());
 
 //Habilitando routing 
 app.use("/", routes());

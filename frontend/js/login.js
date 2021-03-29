@@ -4,7 +4,19 @@ loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const email = loginForm["login-email"].value;
   const password = loginForm["login-password"].value;
-  console.log(email, password);
+  
+  //Request
+  fetch('http://localhost:8000/login', {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      password
+    }),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
 
   auth.signInWithEmailAndPassword(email, password).then((UserCredential) => {
     //   clear the form
