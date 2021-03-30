@@ -20,8 +20,7 @@ const usuarioSchema = new Schema ({
         trim: true
     },
     gastos:{
-        type: Array,
-        trim: true
+        type: Array
     },
     restante:{
         type: Number,

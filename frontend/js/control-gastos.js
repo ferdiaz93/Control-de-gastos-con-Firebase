@@ -176,15 +176,17 @@ async function agregarGasto(e) {
   if (nombre === "" || cantidad === "" || fecha === "") {
     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
     return;
-  } else if (cantidad <= 0 || isNaN(cantidad)) {
+  } 
+  if (cantidad <= 0 || isNaN(cantidad)) {
     ui.mostrarAlerta("Cantidad no válida", "error");
     return;
   }
   //Nuevo Object Gasto
   const gasto = { nombre, cantidad, id: Date.now(), fecha };
 
+  
   //Request 
-  await fetch('http://localhost:8000/gastos', {
+  fetch('http://localhost:8000/gastos', {
     method: 'POST',
     body: JSON.stringify({
       nombre,
@@ -196,6 +198,7 @@ async function agregarGasto(e) {
       'Content-Type': 'application/json'
     }
   })
+ 
 
   //Nuevo gasto
   presupuesto.nuevoGasto(gasto);

@@ -5,6 +5,7 @@ const Usuario = require('../models/usuario');
 exports.nuevoUsuario = async( req, res, next ) => {
     const {email, password}  = req.body;
     
+    
     const data = { 
         email,
         password,
@@ -41,7 +42,9 @@ exports.loguearUsuario = async (req, res, next ) => {
             return res.status(404).json({ mensaje: "Email no registrado"});
         }
         if (usuario.password === password) {
-            return res.status(200).json({mensaje: "es la misma contraseña"});
+            req.session.usuarioLogueado = usuario;
+            console.log(req.session.usuarioLogueado);
+            return res.status(200).json({mensaje: "Usuario logueado"});
         }else{
             return res.status(401).json({mensaje: "Usuario o contraseña incorrectos"});
         }

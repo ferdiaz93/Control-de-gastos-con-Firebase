@@ -1,12 +1,12 @@
 const loginForm = document.getElementById("login-form");
 
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = loginForm["login-email"].value;
   const password = loginForm["login-password"].value;
   
   //Request
-  fetch('http://localhost:8000/login', {
+  await fetch('http://localhost:8000/login', {
     method: 'POST',
     body: JSON.stringify({
       email,

@@ -23,6 +23,10 @@ module.exports = function(){
     router.post('/registro', usuarioController.nuevoUsuario);
     //Obtiene un usuario por su Id
     router.post('/login', usuarioController.loguearUsuario);
+    //Cierra sesion
+    router.get('/logout', (req,res) => {
+        req.session.destroy();
+      })
 
     return router;
 }
