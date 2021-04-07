@@ -2,6 +2,7 @@ const logout = document.getElementById("logout");
 const formulario = document.getElementById("agregar-gasto");
 const gastoListado = document.querySelector("#gastos ul");
 
+
 // Events
 
 eventListeners();
@@ -15,9 +16,12 @@ logout.addEventListener("click", (e) => {
   // Si el cierre de la autenticacion ha sido correcto entonces que se muestre por consola 'sign out'
   auth.signOut().then(() => {
     console.log("sign out");
-    setTimeout(() => {
-      window.location = "http://127.0.0.1:5500/frontend/login.html";
-    }, 3000);
+    fetch('http://localhost:8000/logout')
+    .then(res => res.json())
+    .then(res => {
+      window.location = 'http://localhost:8000/';
+    }) 
+
   });
 });
 
@@ -29,8 +33,9 @@ class Presupuesto {
     this.gastos = [];
   }
   nuevoGasto(gasto) {
-    this.gastos = [...this.gastos, gasto];
-    this.calcularRestante();
+    
+      this.gastos = [...this.gastos, gasto];
+      this.calcularRestante();
   }
   calcularRestante() {
     const dineroGastado = this.gastos.reduce(
@@ -43,6 +48,7 @@ class Presupuesto {
     this.gastos = this.gastos.filter((gasto) => gasto.id != id);
     this.calcularRestante();
   }
+  
 }
 
 class UI {
@@ -135,7 +141,7 @@ class UI {
     if (restante <= 0) {
       ui.mostrarAlerta("El presupuesto se ha agotado", "error");
       formulario.querySelector('button[type="submit"]').disabled = true;
-      restante = 0;
+  
     }
   }
 }
@@ -147,7 +153,7 @@ let presupuesto;
 //FUNCIONES
 
 function preguntarPresupuesto() {
-  const presupuestoUser = prompt("¿Cuál es tu presupuesto?");
+  const presupuestoUser = 500;
 
   if (
     presupuestoUser === "" ||
@@ -155,7 +161,7 @@ function preguntarPresupuesto() {
     isNaN(presupuestoUser) ||
     presupuestoUser <= 0
   ) {
-    window.location.reload();
+    // window.location.reload();
   }
 
   presupuesto = new Presupuesto(presupuestoUser);

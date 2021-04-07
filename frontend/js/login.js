@@ -1,5 +1,6 @@
 const loginForm = document.getElementById("login-form");
 
+
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = loginForm["login-email"].value;
@@ -17,13 +18,19 @@ loginForm.addEventListener("submit", async (e) => {
       'Content-Type': 'application/json'
     }
   })
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
+    window.location = "http://localhost:8000/control-gastos";
+  })
 
-  auth.signInWithEmailAndPassword(email, password).then((UserCredential) => {
-    //   clear the form
-    loginForm.remove();
-    window.location = "http://127.0.0.1:5500/frontend/control-gastos.html";
-    console.log("login");
-  });
+
+  // auth.signInWithEmailAndPassword(email, password).then((UserCredential) => {
+  //   //   clear the form
+  //   loginForm.remove();
+  //   window.location = "http://127.0.0.1:5500/frontend/control-gastos.html";
+  //   console.log("login");
+  // });
 });
 
 // Google Login
@@ -37,7 +44,7 @@ btnGoogle.addEventListener("click", (e) => {
     //si funciona, captura un resultado
     .then((result) => {
       console.log("google sign in");
-      window.location = "http://127.0.0.1:5500/frontend/control-gastos.html";
+      window.location = "http://localhost:8000/control-gastos";
     })
     .catch((err) => {
       console.log(err);

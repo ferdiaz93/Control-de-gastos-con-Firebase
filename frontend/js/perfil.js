@@ -6,7 +6,7 @@ logoutPerfil.addEventListener("click", (e) => {
   auth.signOut().then(() => {
     console.log("sign out");
     setTimeout(() => {
-      window.location = "http://127.0.0.1:5500/frontend/login.html";
+      window.location = "http://localhost:8000/login";
     }, 3000);
   });
 });
@@ -53,7 +53,7 @@ auth.onAuthStateChanged((user) => {
   } else {
     setupUsers([]);
     setTimeout(() => {
-      window.location = "http://127.0.0.1:5500/frontend/login.html";
+      window.location = "http://localhost:8000/login";
     }, 3000);
   }
 });

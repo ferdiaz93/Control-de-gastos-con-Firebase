@@ -1,6 +1,8 @@
 require("dotenv").config();
 // requiero un modulo
 const express = require("express");
+const path = require('path');
+const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const routes = require("./routes/routes");
 const bodyParser = require('body-parser');
@@ -11,8 +13,15 @@ const expSession = require("express-session");
 // Guardo el num de puerto
 const PUERTO = process.env.PORT || 3000;
 
-// ejecuto el modulo requerido y me devuelve un app
 const app = express();
+
+app.set('views', path.join(__dirname, 'views'))
+app.engine('.hbs', exphbs({
+    defaultLayout: 'main',
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    extname: '.hbs'
+}))
+app.set('view engine', '.hbs');
 
 //Conectando a mongoDB
 mongoose.Promise = global.Promise;
@@ -36,6 +45,9 @@ app.use(
 
 //Habilitando routing 
 app.use("/", routes());
+
+//Archivos estáticos
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Encendiendo el servidor
 app.listen(PUERTO, () => {

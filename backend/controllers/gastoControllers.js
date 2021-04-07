@@ -5,8 +5,9 @@ exports.nuevoGasto = async( req, res, next ) => {
     
     //Creando obj de Gasto con los datos de req.body
     
-    try {
+    
         const gasto = new Gasto(req.body);
+        console.log(req.session, "testeando");
         const usuario = await Usuario.findOneAndUpdate({ email: req.session.usuarioLogueado.email },
         {$push: {gastos: gasto}}, {
          new: true,
@@ -14,20 +15,9 @@ exports.nuevoGasto = async( req, res, next ) => {
         
         req.session.usuarioLogueado = usuario;
         
-        console.log(req.session.usuarioLogueado);
         return res.json({mensaje: 'el gasto se agregó correctamente'})
-    } catch (error) {
-        console.log(error);
-    } 
-    // try {
-    //     await gasto.save();
-    //     
-    // } catch (error) {
-    //     console.log(error);
-    //     //Para que vaya a la siguiente funcion
-    //     next();
-    // }
-    
+
+   
 }
 
 //Obtiene todos los gastos
