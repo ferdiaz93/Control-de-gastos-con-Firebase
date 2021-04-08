@@ -75,3 +75,9 @@ exports.loguearUsuario = async (req, res, next ) => {
             return res.status(401).json({mensaje: "Usuario o contraseña incorrectos"});
         }        
 }
+
+exports.obtenerUsuario = async (req, res ) => {
+    const idUsuario = req.params.id;
+    const usuario = await Usuario.findById(idUsuario);
+    return res.status(200).json({usuario});
+}

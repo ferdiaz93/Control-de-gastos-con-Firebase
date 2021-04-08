@@ -1,7 +1,8 @@
 const logout = document.getElementById("logout");
 const formulario = document.getElementById("agregar-gasto");
 const gastoListado = document.querySelector("#gastos ul");
-
+const idUsuario = localStorage.getItem('idUsuario');
+const btnPerfil = document.getElementById('perfil');
 
 // Events
 
@@ -11,6 +12,16 @@ function eventListeners() {
   formulario.addEventListener("submit", agregarGasto);
 }
 
+
+fetch('http://localhost:8000/api/usuario/'+ idUsuario)
+.then(function(res){
+  return res.json()
+})
+.then(function(res){
+  btnPerfil.innerText = res.usuario.email;
+})
+
+
 logout.addEventListener("click", (e) => {
   e.preventDefault();
   // Si el cierre de la autenticacion ha sido correcto entonces que se muestre por consola 'sign out'
@@ -19,6 +30,7 @@ logout.addEventListener("click", (e) => {
     fetch('http://localhost:8000/logout')
     .then(res => res.json())
     .then(res => {
+      localStorage.removeItem("idUsuario");
       window.location = 'http://localhost:8000/';
     }) 
 

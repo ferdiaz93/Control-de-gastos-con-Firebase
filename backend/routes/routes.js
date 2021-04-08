@@ -16,6 +16,8 @@ module.exports = function(){
     //Elimina un gasto por su Id
     router.delete('/gastos/:id', gastoController.eliminarGasto);
 
+    router.get('/api/usuario/:id', usuarioController.obtenerUsuario);
+
 
     //Rutas de vistas
 

@@ -21,6 +21,7 @@ loginForm.addEventListener("submit", async (e) => {
   .then(res => res.json())
   .then(res => {
     console.log(res);
+    localStorage.setItem('idUsuario', res.usuario._id);
     window.location = "http://localhost:8000/control-gastos";
   })
 
