@@ -25,7 +25,7 @@ signupForm.addEventListener("submit", (e) => {
     .then((UserCredential) => {
       // clear the form
       signupForm.remove();
-      window.location = "http://127.0.0.1:5500/frontend/control-gastos.html";
+      window.location = "http://localhost:8000/control-gastos";
 
       console.log("signup");
     });

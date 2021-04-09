@@ -1,6 +1,8 @@
 const logout = document.getElementById("logout");
 const formulario = document.getElementById("agregar-gasto");
 const gastoListado = document.querySelector("#gastos ul");
+const idUsuario = localStorage.getItem('idUsuario');
+const btnPerfil = document.getElementById('perfil');
 
 // Events
 
@@ -10,14 +12,28 @@ function eventListeners() {
   formulario.addEventListener("submit", agregarGasto);
 }
 
+
+fetch('http://localhost:8000/api/usuario/'+ idUsuario)
+.then(function(res){
+  return res.json()
+})
+.then(function(res){
+  btnPerfil.innerText = res.usuario.email;
+})
+
+
 logout.addEventListener("click", (e) => {
   e.preventDefault();
   // Si el cierre de la autenticacion ha sido correcto entonces que se muestre por consola 'sign out'
   auth.signOut().then(() => {
     console.log("sign out");
-    setTimeout(() => {
-      window.location = "http://127.0.0.1:5500/frontend/login.html";
-    }, 3000);
+    fetch('http://localhost:8000/logout')
+    .then(res => res.json())
+    .then(res => {
+      localStorage.removeItem("idUsuario");
+      window.location = 'http://localhost:8000/';
+    }) 
+
   });
 });
 
@@ -29,8 +45,9 @@ class Presupuesto {
     this.gastos = [];
   }
   nuevoGasto(gasto) {
-    this.gastos = [...this.gastos, gasto];
-    this.calcularRestante();
+    
+      this.gastos = [...this.gastos, gasto];
+      this.calcularRestante();
   }
   calcularRestante() {
     const dineroGastado = this.gastos.reduce(
@@ -43,6 +60,7 @@ class Presupuesto {
     this.gastos = this.gastos.filter((gasto) => gasto.id != id);
     this.calcularRestante();
   }
+  
 }
 
 class UI {
@@ -135,7 +153,7 @@ class UI {
     if (restante <= 0) {
       ui.mostrarAlerta("El presupuesto se ha agotado", "error");
       formulario.querySelector('button[type="submit"]').disabled = true;
-      restante = 0;
+  
     }
   }
 }
@@ -147,7 +165,7 @@ let presupuesto;
 //FUNCIONES
 
 function preguntarPresupuesto() {
-  const presupuestoUser = prompt("¿Cuál es tu presupuesto?");
+  const presupuestoUser = 500;
 
   if (
     presupuestoUser === "" ||
@@ -155,7 +173,7 @@ function preguntarPresupuesto() {
     isNaN(presupuestoUser) ||
     presupuestoUser <= 0
   ) {
-    window.location.reload();
+    // window.location.reload();
   }
 
   presupuesto = new Presupuesto(presupuestoUser);
@@ -176,15 +194,17 @@ async function agregarGasto(e) {
   if (nombre === "" || cantidad === "" || fecha === "") {
     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
     return;
-  } else if (cantidad <= 0 || isNaN(cantidad)) {
+  } 
+  if (cantidad <= 0 || isNaN(cantidad)) {
     ui.mostrarAlerta("Cantidad no válida", "error");
     return;
   }
   //Nuevo Object Gasto
   const gasto = { nombre, cantidad, id: Date.now(), fecha };
 
+  
   //Request 
-  await fetch('http://localhost:8000/gastos', {
+  fetch('http://localhost:8000/gastos', {
     method: 'POST',
     body: JSON.stringify({
       nombre,
@@ -196,6 +216,7 @@ async function agregarGasto(e) {
       'Content-Type': 'application/json'
     }
   })
+ 
 
   //Nuevo gasto
   presupuesto.nuevoGasto(gasto);

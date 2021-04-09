@@ -19,7 +19,7 @@
   <body class="bg-dark pb-5">
     <nav class="navbar d-flex flex-row-reverse">
       <div class="d-flex">
-        <a href="perfil.html" id="perfil" class="nav-link hover-text">PERFIL</a>
+        <a href="" id="perfil" class="nav-link hover-text">PERFIL</a>
         <a class="nav-link hover-text" id="logout" href="">SALIR</a>
       </div>
     </nav>
@@ -28,13 +28,45 @@
         <h1 class="texto-blanco text-center m-5">Control de gastos</h1>
       </header>
       <section class="contenido-principal">
-        <div class="row">
-          <div class="col">
-            <div class="contenido primario">
+          <!-- LISTADO DE PRESUPUESTO Y RESTANTE -->
+          <div class="row">
+            <div class="col">
+              <div class="contenido terciario">
+                <h2 class="text-center">Listado</h2>
+    
+                <div id="gastos">
+                  <ul class="list-group"></ul>
+                </div>
+                <div id="presupuesto" class="presupuesto">
+                  <div class="alert alert-primary">
+                    <p>Presupuesto: $ <span id="total"></span></p>
+                  </div>
+                  <div class="restante alert alert-success">
+                    <p>Restante: $ <span id="restante"></span></p>
+                  </div>
+                </div>
+                <!--.presupuesto-->
+              </div>
+              <!--.contenido-->
+            </div>
+          </div>
+          <!--.col-->
+        <form id="agregar-gasto" action="http://localhost:8000/Control-gastos" method="POST">
+          <div class="row">
+            <div class="col">
+              <div class="contenido primario">
               <h2 class="text-center">Añade tus gastos aqui</h2>
-              <form id="agregar-gasto" action="http://localhost:8000/gastos" method="POST">
                 <div class="form-group">
-                  <label for="gasto">Gasto:</label>
+                  <label for="presupuesto">Presupuesto:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="presupuesto"
+                    placeholder="Presupuesto"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="gasto">Nombre:</label>
                   <input
                     type="text"
                     class="form-control"
@@ -60,36 +92,31 @@
                     placeholder=""
                   />
                 </div>
-
+              </div>
+            </div>
+              <!-- FORMULARIO DE NUEVOS INGRESOS -->
+            <div class="col">
+                <h2 class="text-center">Nuevos ingresos</h2>
+                <div class="form-group">
+                  <label for="nombreIngresos">Nombre</label>
+                  <input type="text" class="form-control" id="nombreIngresos" placeholder="Nombre del ingreso"/>
+                </div>
+                <div class="form-group">
+                  <label for="montoIngresos">Monto</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="montoIngresos"
+                  placeholder="Monto del ingreso"
+                  />
+                </div>
                 <button type="submit" class="btn btn-success">Agregar</button>
-              </form>
             </div>
-            <!--.contenido-->
-          </div>
-          <!--.col-->
-
-          <div class="col">
-            <div class="contenido secundario">
-              <h2 class="text-center">Listado</h2>
-
-              <div id="gastos">
-                <ul class="list-group"></ul>
-              </div>
-              <div id="presupuesto" class="presupuesto">
-                <div class="alert alert-primary">
-                  <p>Presupuesto: $ <span id="total"></span></p>
-                </div>
-                <div class="restante alert alert-success">
-                  <p>Restante: $ <span id="restante"></span></p>
-                </div>
-              </div>
-              <!--.presupuesto-->
-            </div>
-            <!--.contenido-->
-          </div>
-          <!--.col-->
-        </div>
+              <!--.col-->
+           </div>
+        </form>
         <!--.row-->
+      
       </section>
     </div>
     <footer class="bg-dark">

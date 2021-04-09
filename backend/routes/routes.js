@@ -1,4 +1,3 @@
-const express = require('express');
 const router = require("express").Router();
 const gastoController = require('../controllers/gastoControllers');
 const usuarioController = require('../controllers/usuarioController');
@@ -17,13 +16,22 @@ module.exports = function(){
     //Elimina un gasto por su Id
     router.delete('/gastos/:id', gastoController.eliminarGasto);
 
+    router.get('/api/usuario/:id', usuarioController.obtenerUsuario);
 
-    //Rutas de User
-    //Agrega un nuevo usuario
+
+    //Rutas de vistas
+
+    router.get('/', usuarioController.renderRegistro);
+    router.get('/login', usuarioController.renderLogin);
+    router.get('/Control-gastos', usuarioController.renderControlGastos);
+    router.get('/perfil', usuarioController.renderPerfil);
+
     router.post('/registro', usuarioController.nuevoUsuario);
     //Obtiene un usuario por su Id
     router.post('/login', usuarioController.loguearUsuario);
-
+    //Cierra sesion
+    router.get('/logout', usuarioController.logout);
+   
     return router;
 }
 

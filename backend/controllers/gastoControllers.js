@@ -1,20 +1,23 @@
 const Gasto = require('../models/Gasto');
-
+const Usuario = require('../models/usuario');
 //Cuando se cree un nuevo gasto
 exports.nuevoGasto = async( req, res, next ) => {
     
     //Creando obj de Gasto con los datos de req.body
-    console.log(req.body);
-    const gasto = new Gasto(req.body);
-    try {
-        await gasto.save();
-        res.json({mensaje: 'el gasto se agregó correctamente'})
-    } catch (error) {
-        console.log(error);
-        //Para que vaya a la siguiente funcion
-        next();
-    }
     
+    
+        const gasto = new Gasto(req.body);
+        console.log(req.session, "testeando");
+        const usuario = await Usuario.findOneAndUpdate({ email: req.session.usuarioLogueado.email },
+        {$push: {gastos: gasto}}, {
+         new: true,
+        });
+        
+        req.session.usuarioLogueado = usuario;
+        
+        return res.json({mensaje: 'el gasto se agregó correctamente'})
+
+   
 }
 
 //Obtiene todos los gastos
