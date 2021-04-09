@@ -29,11 +29,22 @@
       </header>
       <section class="contenido-principal">
           <!-- LISTADO DE PRESUPUESTO Y RESTANTE -->
+          <h2 class="text-center">Ingresa tu presupuesto</h2>
+          <div class="form-group d-flex flex-column">
+            <form class="d-flex justify-content-center w-100" id="formPresupuesto">
+              <input
+                type="number"
+                name="presupuesto"
+                class="form-control w-50"
+                id="presupuesto"
+                placeholder="Presupuesto"
+              />
+              <button type="submit" id="btnPresupuesto" class="btn btn-success">Agregar</button>
+            </form>
+          </div>
           <div class="row">
             <div class="col">
-              <div class="contenido terciario">
-                <h2 class="text-center">Listado</h2>
-    
+              <div class="contenido">
                 <div id="gastos">
                   <ul class="list-group"></ul>
                 </div>
@@ -51,21 +62,13 @@
             </div>
           </div>
           <!--.col-->
-        <form id="agregar-gasto" action="http://localhost:8000/Control-gastos" method="POST">
           <div class="row">
-            <div class="col">
-              <div class="contenido primario">
-              <h2 class="text-center">Añade tus gastos aqui</h2>
-                <div class="form-group">
-                  <label for="presupuesto">Presupuesto:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="presupuesto"
-                    placeholder="Presupuesto"
-                  />
-                </div>
-                <div class="form-group">
+            <div class="col primario">
+              <!-- FORMULARIO DE GASTOS -->
+              <form id="agregar-gasto" action="http://localhost:8000/Control-gastos" method="POST">
+                <div class="contenido">
+                  <h2 class="text-center">Añade tus gastos aqui</h2>
+                  <div class="form-group">
                   <label for="gasto">Nombre:</label>
                   <input
                     type="text"
@@ -73,48 +76,60 @@
                     id="gasto"
                     placeholder="Nombre Gasto"
                   />
+                  </div>
+                  <div class="form-group">
+                    <label for="cantidad">Monto:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cantidad"
+                      placeholder="Monto en $"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="fecha"
+                      placeholder=""
+                    />
+                  </div>
+                  <button type="submit" id="btnGasto" class="btn btn-success">Agregar gasto</button>
                 </div>
-                <div class="form-group">
-                  <label for="cantidad">Monto:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="cantidad"
-                    placeholder="Monto en $"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="fecha">Fecha:</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="fecha"
-                    placeholder=""
-                  />
-                </div>
-              </div>
+              </form>
             </div>
+            <div class="col contenido">
               <!-- FORMULARIO DE NUEVOS INGRESOS -->
-            <div class="col">
+              <form id="agregar-ingreso" action="" method="">
                 <h2 class="text-center">Nuevos ingresos</h2>
                 <div class="form-group">
-                  <label for="nombreIngresos">Nombre</label>
-                  <input type="text" class="form-control" id="nombreIngresos" placeholder="Nombre del ingreso"/>
+                  <label for="nombreIngreso">Nombre</label>
+                  <input type="text" class="form-control" id="nombreIngreso" placeholder="Nombre del ingreso"/>
                 </div>
                 <div class="form-group">
-                  <label for="montoIngresos">Monto</label>
+                  <label for="montoIngreso">Monto</label>
                   <input
                   type="text"
                   class="form-control"
-                  id="montoIngresos"
+                  id="cantidadIngreso"
                   placeholder="Monto del ingreso"
                   />
                 </div>
-                <button type="submit" class="btn btn-success">Agregar</button>
-            </div>
+                <div class="form-group">
+                  <label for="fechaIngreso">Monto</label>
+                  <input
+                  type="date"
+                  class="form-control"
+                  id="fechaIngreso"
+                  placeholder=""
+                  />
+                </div>
+                <button type="submit" id="btnIngreso" class="btn btn-success">Agregar ingreso</button>
+              </form>
               <!--.col-->
-           </div>
-        </form>
+            </div>
+          </div>
         <!--.row-->
       
       </section>

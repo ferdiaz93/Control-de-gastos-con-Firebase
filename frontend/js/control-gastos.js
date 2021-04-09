@@ -1,15 +1,18 @@
 const logout = document.getElementById("logout");
 const formulario = document.getElementById("agregar-gasto");
+const forIngreso = document.getElementById("agregar-ingreso");
 const gastoListado = document.querySelector("#gastos ul");
 const idUsuario = localStorage.getItem('idUsuario');
 const btnPerfil = document.getElementById('perfil');
+const formPresupuesto = document.getElementById("formPresupuesto");
 
 // Events
 
 eventListeners();
 function eventListeners() {
-  document.addEventListener("DOMContentLoaded", preguntarPresupuesto);
+  formPresupuesto.addEventListener("submit", preguntarPresupuesto);
   formulario.addEventListener("submit", agregarGasto);
+  // forIngreso.addEventListener('submit', agregarIngreso);
 }
 
 
@@ -42,6 +45,7 @@ class Presupuesto {
   constructor(presupuesto) {
     this.presupuesto = Number(presupuesto);
     this.restante = Number(presupuesto);
+    // this.ingreso = [];
     this.gastos = [];
   }
   nuevoGasto(gasto) {
@@ -49,6 +53,12 @@ class Presupuesto {
       this.gastos = [...this.gastos, gasto];
       this.calcularRestante();
   }
+  // nuevoIngreso(ingreso) {
+  //   this.gastos = [...this.ingresos, ingreso];
+  //   calcularRestante();
+  // }
+  
+
   calcularRestante() {
     const dineroGastado = this.gastos.reduce(
       (total, gasto) => total + gasto.cantidad,
@@ -63,10 +73,11 @@ class Presupuesto {
   
 }
 
+
 class UI {
-  insertarPresupuesto(cantidad) {
+  insertarPresupuesto(presupuestoRecibido) {
     //Leyendo valores
-    const { presupuesto, restante } = cantidad;
+    const { presupuesto, restante } = presupuestoRecibido;
 
     //Agregando al HTML
     document.querySelector("#total").textContent = presupuesto;
@@ -164,8 +175,10 @@ let presupuesto;
 
 //FUNCIONES
 
-function preguntarPresupuesto() {
-  const presupuestoUser = 500;
+function preguntarPresupuesto(e) {
+  e.preventDefault();
+  const presupuestoUser = document.getElementById("presupuesto").value;
+  console.log(presupuestoUser);
 
   if (
     presupuestoUser === "" ||
@@ -173,12 +186,11 @@ function preguntarPresupuesto() {
     isNaN(presupuestoUser) ||
     presupuestoUser <= 0
   ) {
-    // window.location.reload();
+    console.log('presupuesto');
   }
 
   presupuesto = new Presupuesto(presupuestoUser);
-  console.log(presupuesto);
-
+  
   ui.insertarPresupuesto(presupuesto);
 }
 
@@ -203,6 +215,7 @@ async function agregarGasto(e) {
   const gasto = { nombre, cantidad, id: Date.now(), fecha };
 
   
+
   //Request 
   fetch('http://localhost:8000/gastos', {
     method: 'POST',
@@ -235,6 +248,26 @@ async function agregarGasto(e) {
   //Reset del form
   formulario.reset();
 }
+
+// async function agregarIngreso(e){
+//   e.preventDefault();
+//   const nombre = document.getElementById('nombreIngreso').value;
+//   const cantidad = document.getElementById('cantidadIngreso').value;
+//   const fecha = document.getElementById('fechaIngreso').value;
+
+//   //Validacion
+//   if (nombre === "" || cantidad === "" || fecha === "") {
+//     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
+//     return;
+//   } 
+//   if (cantidad <= 0 || isNaN(cantidad)) {
+//     ui.mostrarAlerta("Cantidad no válida", "error");
+//     return;
+//   }
+//   //Nuevo Object Ingreso
+//   const ingreso = { nombre, cantidad, id: Date.now(), fecha };
+
+// }
 //Funcion que elimina los gastos
 function eliminarGasto(id) {
   //Elimina del objeto
