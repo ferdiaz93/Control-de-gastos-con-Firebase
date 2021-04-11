@@ -25,6 +25,10 @@ const usuarioSchema = new Schema ({
     restante:{
         type: Number,
         trim: true
+    },
+    uid_firebase:{
+        type: String,
+        required: false
     }
 });
 

@@ -12,7 +12,7 @@ eventListeners();
 function eventListeners() {
   formPresupuesto.addEventListener("submit", preguntarPresupuesto);
   formulario.addEventListener("submit", agregarGasto);
-  // forIngreso.addEventListener('submit', agregarIngreso);
+  forIngreso.addEventListener('submit', agregarIngreso);
 }
 
 
@@ -45,7 +45,7 @@ class Presupuesto {
   constructor(presupuesto) {
     this.presupuesto = Number(presupuesto);
     this.restante = Number(presupuesto);
-    // this.ingreso = [];
+    this.ingresos = [];
     this.gastos = [];
   }
   nuevoGasto(gasto) {
@@ -53,18 +53,13 @@ class Presupuesto {
       this.gastos = [...this.gastos, gasto];
       this.calcularRestante();
   }
-  // nuevoIngreso(ingreso) {
-  //   this.gastos = [...this.ingresos, ingreso];
-  //   calcularRestante();
-  // }
-  
-
   calcularRestante() {
     const dineroGastado = this.gastos.reduce(
       (total, gasto) => total + gasto.cantidad,
       0
     );
     this.restante = this.presupuesto - dineroGastado;
+
   }
   eliminarGasto(id) {
     this.gastos = this.gastos.filter((gasto) => gasto.id != id);
@@ -249,25 +244,25 @@ async function agregarGasto(e) {
   formulario.reset();
 }
 
-// async function agregarIngreso(e){
-//   e.preventDefault();
-//   const nombre = document.getElementById('nombreIngreso').value;
-//   const cantidad = document.getElementById('cantidadIngreso').value;
-//   const fecha = document.getElementById('fechaIngreso').value;
+async function agregarIngreso(e){
+  e.preventDefault();
+  const nombre = document.getElementById('nombreIngreso').value;
+  const cantidad = document.getElementById('cantidadIngreso').value;
+  const fecha = document.getElementById('fechaIngreso').value;
+  const categoria = document.querySelector('.categorias').value;
+  //Validacion
+  if (nombre === "" || cantidad === "" || fecha === "") {
+    ui.mostrarAlerta("Ambos campos son obligatorios", "error");
+    return;
+  } 
+  if (cantidad <= 0 || isNaN(cantidad)) {
+    ui.mostrarAlerta("Cantidad no válida", "error");
+    return;
+  }
+  //Nuevo Object Ingreso
+  const ingreso = { nombre, cantidad, id: Date.now(), fecha };
 
-//   //Validacion
-//   if (nombre === "" || cantidad === "" || fecha === "") {
-//     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
-//     return;
-//   } 
-//   if (cantidad <= 0 || isNaN(cantidad)) {
-//     ui.mostrarAlerta("Cantidad no válida", "error");
-//     return;
-//   }
-//   //Nuevo Object Ingreso
-//   const ingreso = { nombre, cantidad, id: Date.now(), fecha };
-
-// }
+}
 //Funcion que elimina los gastos
 function eliminarGasto(id) {
   //Elimina del objeto
@@ -281,3 +276,4 @@ function eliminarGasto(id) {
 
   ui.comprobarPresupuesto(presupuesto);
 }
+

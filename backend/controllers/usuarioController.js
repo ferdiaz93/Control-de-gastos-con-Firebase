@@ -32,11 +32,12 @@ exports.logout = async ( req, res ) => {
 
 //Cuando se cree un nuevo usuario
 exports.nuevoUsuario = async( req, res, next ) => {
-    const {email, password}  = req.body;
+    const {email, password, uid_firebase}  = req.body;
     
     const data = { 
         email,
         password,
+        uid_firebase,
         presupuesto: 0,
         restante: 0,
         nombre: "",
@@ -45,8 +46,10 @@ exports.nuevoUsuario = async( req, res, next ) => {
     //Creando obj de usuario con los datos de req.body
     const usuario = new Usuario(data);
     try {
-        await usuario.save();
-        res.json({mensaje: 'el usuario se agregó correctamente'})
+        const newUser = await usuario.save();
+        req.session.usuarioLogueado = newUser;
+        res.json({mensaje: 'el usuario se agregó correctamente', success: true, usuario: newUser});
+
     } catch (error) {
         console.log(error);
         //Para que vaya a la siguiente funcion
@@ -74,6 +77,16 @@ exports.loguearUsuario = async (req, res, next ) => {
         }else{
             return res.status(401).json({mensaje: "Usuario o contraseña incorrectos"});
         }        
+}
+
+exports.loguearConFirebase = async (req,res) =>{
+    const { email, uid_firebase } = req.body;
+    const usuario = await Usuario.findOne({ email: email, uid_firebase: uid_firebase });
+    if (usuario) {
+        req.session.usuarioLogueado = usuario;
+        return res.status(200).json({success: true, usuario: usuario, mensaje: "usuario logueado"});
+    }
+    return res.status(200).json({success: false, mensaje: "usuario no logueado"});
 }
 
 exports.obtenerUsuario = async (req, res ) => {

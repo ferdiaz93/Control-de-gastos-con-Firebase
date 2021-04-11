@@ -52,8 +52,8 @@ auth.onAuthStateChanged((user) => {
       });
   } else {
     setupUsers([]);
-    setTimeout(() => {
-      window.location = "http://localhost:8000/login";
-    }, 3000);
+    // setTimeout(() => {
+    //   window.location = "http://localhost:8000/login";
+    // }, 3000);
   }
 });
