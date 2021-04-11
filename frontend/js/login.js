@@ -1,5 +1,6 @@
 const loginForm = document.getElementById("login-form");
 
+auth.signOut();
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -25,13 +26,6 @@ loginForm.addEventListener("submit", async (e) => {
     window.location = "http://localhost:8000/control-gastos";
   })
 
-
-  // auth.signInWithEmailAndPassword(email, password).then((UserCredential) => {
-  //   //   clear the form
-  //   loginForm.remove();
-  //   window.location = "http://127.0.0.1:5500/frontend/control-gastos.html";
-  //   console.log("login");
-  // });
 });
 
 // Google Login
@@ -44,28 +38,37 @@ btnGoogle.addEventListener("click", (e) => {
     .signInWithPopup(provider)
     //si funciona, captura un resultado
     .then((result) => {
+      console.log(result);
       console.log("google sign in");
-      window.location = "http://localhost:8000/control-gastos";
+      const email = result.user.email;
+      const uid_firebase = result.user.uid;
+      
+      fetch("http://localhost:8000/loginFb", {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          uid_firebase
+        }),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+
+      })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+       if (res.success === true) {
+        localStorage.setItem('idUsuario', res.usuario._id);
+        window.location = "http://localhost:8000/control-gastos";
+       }else{
+        window.location = "http://localhost:8000/registro";
+       }
+      })
+      
     })
     .catch((err) => {
       console.log(err);
     });
 });
 
-//Facebook Login / BOTON DESACTIVADO!
-// const btnFacebook = (document.querySelector("#btn-facebook").disabled = true);
-// btnFacebook.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   console.log("facebook login");
-//   const facebookProvider = new firebase.auth.FacebookAuthProvider();
-//   auth
-//     .signInWithPopup(facebookProvider)
-//     .then((result) => {
-//       console.log(result);
-//       console.log("facebook singin");
-//       window.location = "http://127.0.0.1:5500/control-gastos.html";
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });

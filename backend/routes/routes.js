@@ -21,11 +21,12 @@ module.exports = function(){
 
     //Rutas de vistas
 
-    router.get('/', usuarioController.renderRegistro);
-    router.get('/login', usuarioController.renderLogin);
+    router.get('/registro', usuarioController.renderRegistro);
+    router.get('/', usuarioController.renderLogin);
     router.get('/Control-gastos', usuarioController.renderControlGastos);
     router.get('/perfil', usuarioController.renderPerfil);
 
+    router.post('/loginFb', usuarioController.loguearConFirebase);
     router.post('/registro', usuarioController.nuevoUsuario);
     //Obtiene un usuario por su Id
     router.post('/login', usuarioController.loguearUsuario);
