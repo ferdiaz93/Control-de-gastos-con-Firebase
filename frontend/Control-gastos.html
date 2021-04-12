@@ -67,13 +67,15 @@
               <h2 class="text-center titulo-gastos">Añade tus gastos aqui</h2>
               <div class="input-group mt-5 m-4 mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">Categorias</label>
-                <select class="form-select p-2" class="categorias" id="inputGroupSelect01">
-                  <option selected id="Super">Super o despensa</option>
-                  <option value="1" id="transporte">Transporte</option>
-                  <option value="2" id="expensas">Expensas</option>
-                  <option value="3" id="internet">Internet</option>
-                  <option value="4" id="ocio">Ocio</option>
-                  <option value="5" id="otro">Otro..</option>
+                <select class="form-select p-2" class="categoria" id="select" name="select" required>
+                  
+                  <option value="0">Seleccionar..</option>
+                  <option value="Super o despensa">Super o despensa</option>
+                  <option value="Transporte" id="transporte">Transporte</option>
+                  <option value="Expensas" id="expensas">Expensas</option>
+                  <option value="Internet" id="internet">Internet</option>
+                  <option value="Ocio" id="ocio">Ocio</option>
+                  <option value="Otro" id="otro">Otro..</option>
                 </select>
               </div>
               <!-- FORMULARIO DE GASTOS -->

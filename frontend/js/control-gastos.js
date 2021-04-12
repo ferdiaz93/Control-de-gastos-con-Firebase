@@ -106,7 +106,7 @@ class UI {
     this.limpiarHtml();
     //  iterando sobre los gastos
     gastos.forEach((gasto) => {
-      const { cantidad, nombre, id, fecha } = gasto;
+      const { categoria, cantidad, nombre, id, fecha } = gasto;
 
       //Creo un nuevo LI
       const nuevoGasto = document.createElement("li");
@@ -116,7 +116,7 @@ class UI {
 
       //Agrego el Html del gasto
       nuevoGasto.innerHTML = `
-      ${nombre}<span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span> ${fecha}`;
+      <span class="badge badge-primary badge-pill p-2"> ${categoria} </span> ${nombre} <span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span> ${fecha}`;
 
       //Boton para borrar el gasto
       const deleteButton = document.createElement("button");
@@ -193,12 +193,13 @@ async function agregarGasto(e) {
   e.preventDefault();
 
   //Leyendo los datos del form
+  const categoria = document.getElementById("select").value;
   const nombre = document.getElementById("gasto").value;
   const cantidad = Number(document.getElementById("cantidad").value);
   const fecha = document.getElementById("fecha").value;
 
   //Validacion
-  if (nombre === "" || cantidad === "" || fecha === "") {
+  if (nombre === "" || cantidad === "" || fecha === "" || categoria == 0) {
     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
     return;
   } 
@@ -207,7 +208,7 @@ async function agregarGasto(e) {
     return;
   }
   //Nuevo Object Gasto
-  const gasto = { nombre, cantidad, id: Date.now(), fecha };
+  const gasto = { categoria, nombre, cantidad, id: Date.now(), fecha };
 
   
 
@@ -249,9 +250,9 @@ async function agregarIngreso(e){
   const nombre = document.getElementById('nombreIngreso').value;
   const cantidad = document.getElementById('cantidadIngreso').value;
   const fecha = document.getElementById('fechaIngreso').value;
-  const categoria = document.querySelector('.categorias').value;
+  const categoria = document.getElementById("select").value;
   //Validacion
-  if (nombre === "" || cantidad === "" || fecha === "") {
+  if (nombre === "" || cantidad === "" || fecha === ""|| categoria == 0) {
     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
     return;
   } 
@@ -260,7 +261,7 @@ async function agregarIngreso(e){
     return;
   }
   //Nuevo Object Ingreso
-  const ingreso = { nombre, cantidad, id: Date.now(), fecha };
+  const ingreso = { categoria, nombre, cantidad, id: Date.now(), fecha };
 
 }
 //Funcion que elimina los gastos
