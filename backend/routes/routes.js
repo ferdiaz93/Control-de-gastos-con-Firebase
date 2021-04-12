@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const gastoController = require('../controllers/gastoControllers');
 const usuarioController = require('../controllers/usuarioController');
+const ingresoController = require('../controllers/ingresoController');
 
 
 module.exports = function(){
@@ -18,6 +19,8 @@ module.exports = function(){
 
     router.get('/api/usuario/:id', usuarioController.obtenerUsuario);
 
+    //Agrega nuevos ingresos vía POST
+    router.post('/ingresos', ingresoController.nuevoIngreso);
 
     //Rutas de vistas
 
