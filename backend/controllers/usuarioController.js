@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario');
+const Gasto = require('../models/gasto');
 const path = require('path');
 
 
@@ -73,7 +74,8 @@ exports.loguearUsuario = async (req, res, next ) => {
         }
         if (usuario.password === password) {
             req.session.usuarioLogueado = usuario;
-            return res.status(200).json({mensaje: "Usuario logueado", usuario:usuario});
+            const gastos = await Gasto.find({user_id: usuario._id});
+            return res.status(200).json({mensaje: "Usuario logueado", usuario:usuario, gastos: gastos});
         }else{
             return res.status(401).json({mensaje: "Usuario o contraseña incorrectos"});
         }        
@@ -92,5 +94,6 @@ exports.loguearConFirebase = async (req,res) =>{
 exports.obtenerUsuario = async (req, res ) => {
     const idUsuario = req.params.id;
     const usuario = await Usuario.findById(idUsuario);
-    return res.status(200).json({usuario});
+    const gastos = await Gasto.find({user_id: idUsuario});
+    return res.status(200).json({usuario, gastos});
 }

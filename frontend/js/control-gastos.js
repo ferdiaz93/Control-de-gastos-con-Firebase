@@ -2,11 +2,58 @@ const logout = document.getElementById("logout");
 const formulario = document.getElementById("agregar-gasto");
 const forIngreso = document.getElementById("agregar-ingreso");
 const gastoListado = document.querySelector("#gastos ul");
-const idUsuario = localStorage.getItem('idUsuario');
 const btnPerfil = document.getElementById('perfil');
 const formPresupuesto = document.getElementById("formPresupuesto");
-
+const idUsuario = localStorage.getItem('idUsuario');
+const contenedorGastos = document.getElementById('contenedor-gastos');
 // Events
+
+function actualizarGastos(){
+  fetch('http://localhost:8000/api/gastos/' +idUsuario)
+  .then(function(res){
+    return res.json();
+  })
+  .then(function(res){
+    console.log(res);
+    mostrarGastos(res.gastos);
+  })
+}
+ 
+function mostrarGastos(gastos) {
+    contenedorGastos.innerHTML = "";
+    gastos.forEach(gasto => {
+      contenedorGastos.innerHTML += `
+      <li class='list-group-item d-flex justify-content-between align-items-center'>
+        <span class="badge badge-primary badge-pill p-2"> ${gasto.categoria} </span> ${gasto.nombre}
+        <span class="badge badge-primary badge-pill p-2"> $ ${gasto.cantidad}</span> ${gasto.fecha}
+        <button class="btn btn-danger borrar-gasto" id="${gasto._id}-delete">Borrar</button>
+        <button class="btn btn-success editar-gasto" id="${gasto._id}-edit">Editar</button>
+      </li>
+      ` 
+    });
+    gastos.forEach(gasto => {
+      const btnBorrar = document.getElementById(gasto._id + "-delete");
+      const btnEditar = document.getElementById(gasto._id + "-edit");
+      btnBorrar.addEventListener('click', ()=>{
+        fetch('http://localhost:8000/api/gastos-delete', {
+          method: 'POST',
+          body: JSON.stringify({
+          gastoId: gasto._id
+          }),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(res => {
+          console.log(res);
+          actualizarGastos();
+        }) 
+
+      })
+    });
+  }
 
 eventListeners();
 function eventListeners() {
@@ -22,6 +69,7 @@ fetch('http://localhost:8000/api/usuario/'+ idUsuario)
 })
 .then(function(res){
   btnPerfil.innerText = res.usuario.email;
+  mostrarGastos(res.gastos);
 })
 
 
@@ -109,36 +157,6 @@ class UI {
       divMensaje.remove();
     }, 3000);
   }
-  mostrarGastos(gastos) {
-    //Elimina el Html
-    this.limpiarHtml();
-    //  iterando sobre los gastos
-    gastos.forEach((gasto) => {
-      const { categoria, cantidad, nombre, id, fecha } = gasto;
-
-      //Creo un nuevo LI
-      const nuevoGasto = document.createElement("li");
-      nuevoGasto.className =
-        "list-group-item d-flex justify-content-between align-items-center";
-      nuevoGasto.dataset.id = id;
-
-      //Agrego el Html del gasto
-      nuevoGasto.innerHTML = `
-      <span class="badge badge-primary badge-pill p-2"> ${categoria} </span> ${nombre} <span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span> ${fecha}`;
-
-      //Boton para borrar el gasto
-      const deleteButton = document.createElement("button");
-      deleteButton.classList.add("btn", "btn-danger", "borrar-gasto");
-      deleteButton.innerHTML = "borrar &times";
-      deleteButton.onclick = () => {
-        eliminarGasto(id);
-      };
-      nuevoGasto.appendChild(deleteButton);
-
-      //Agregar al Html
-      gastoListado.appendChild(nuevoGasto);
-    });
-  }
   limpiarHtml() {
     while (gastoListado.firstChild) {
       gastoListado.removeChild(gastoListado.firstChild);
@@ -225,16 +243,21 @@ async function agregarGasto(e) {
   fetch('http://localhost:8000/gastos', {
     method: 'POST',
     body: JSON.stringify({
-      nombre,
-      cantidad,
-      fecha
+      categoria: categoria,
+      nombre: nombre,
+      cantidad: cantidad,
+      fecha: fecha,
+      user_id: idUsuario
     }),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
   })
- 
+  .then(res => res.json())
+  .then(res => {
+     actualizarGastos();
+  }) 
 
   //Nuevo gasto
   presupuesto.nuevoGasto(gasto);
