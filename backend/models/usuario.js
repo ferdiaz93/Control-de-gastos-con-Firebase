@@ -26,6 +26,9 @@ const usuarioSchema = new Schema ({
         type: Number,
         trim: true
     },
+    ingresos:{
+        type: Array
+    },
     uid_firebase:{
         type: String,
         required: false

@@ -12,7 +12,7 @@ exports.nuevoGasto = async( req, res, next ) => {
         {$push: {gastos: gasto}}, {
          new: true,
         });
-        
+        //actualiza la sesion con el nuevo gasto
         req.session.usuarioLogueado = usuario;
         
         return res.json({mensaje: 'el gasto se agregó correctamente'})

@@ -53,13 +53,21 @@ class Presupuesto {
       this.gastos = [...this.gastos, gasto];
       this.calcularRestante();
   }
+  nuevoIngreso(ingreso) {
+    
+      this.ingresos = [...this.ingresos, ingreso];
+      this.calcularRestante();
+  }
   calcularRestante() {
-    const dineroGastado = this.gastos.reduce(
+    let dineroGastado = this.gastos.reduce(
       (total, gasto) => total + gasto.cantidad,
       0
     );
-    this.restante = this.presupuesto - dineroGastado;
-
+    let dineroIngresado  = this.ingresos.reduce(
+      (total, ingreso) => total + ingreso.cantidad,
+      0
+    );
+    this.restante = this.presupuesto + dineroIngresado - dineroGastado;
   }
   eliminarGasto(id) {
     this.gastos = this.gastos.filter((gasto) => gasto.id != id);
@@ -106,7 +114,7 @@ class UI {
     this.limpiarHtml();
     //  iterando sobre los gastos
     gastos.forEach((gasto) => {
-      const { cantidad, nombre, id, fecha } = gasto;
+      const { categoria, cantidad, nombre, id, fecha } = gasto;
 
       //Creo un nuevo LI
       const nuevoGasto = document.createElement("li");
@@ -116,7 +124,7 @@ class UI {
 
       //Agrego el Html del gasto
       nuevoGasto.innerHTML = `
-      ${nombre}<span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span> ${fecha}`;
+      <span class="badge badge-primary badge-pill p-2"> ${categoria} </span> ${nombre} <span class="badge badge-primary badge-pill p-2"> $ ${cantidad}</span> ${fecha}`;
 
       //Boton para borrar el gasto
       const deleteButton = document.createElement("button");
@@ -193,12 +201,13 @@ async function agregarGasto(e) {
   e.preventDefault();
 
   //Leyendo los datos del form
+  const categoria = document.getElementById("select").value;
   const nombre = document.getElementById("gasto").value;
   const cantidad = Number(document.getElementById("cantidad").value);
   const fecha = document.getElementById("fecha").value;
-
+  // const cantidadIngreso = document.getElementById("cantidadIngreso").value;
   //Validacion
-  if (nombre === "" || cantidad === "" || fecha === "") {
+  if (nombre === "" || cantidad === "" || fecha === "" || categoria == 0) {
     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
     return;
   } 
@@ -206,8 +215,9 @@ async function agregarGasto(e) {
     ui.mostrarAlerta("Cantidad no válida", "error");
     return;
   }
+ 
   //Nuevo Object Gasto
-  const gasto = { nombre, cantidad, id: Date.now(), fecha };
+  const gasto = { categoria, nombre, cantidad, id: Date.now(), fecha };
 
   
 
@@ -243,13 +253,14 @@ async function agregarGasto(e) {
   //Reset del form
   formulario.reset();
 }
-
-async function agregarIngreso(e){
+async function agregarIngreso(e) {
   e.preventDefault();
-  const nombre = document.getElementById('nombreIngreso').value;
-  const cantidad = document.getElementById('cantidadIngreso').value;
-  const fecha = document.getElementById('fechaIngreso').value;
-  const categoria = document.querySelector('.categorias').value;
+
+  //Leyendo los datos del form
+  const nombre = document.getElementById("nombreIngreso").value;
+  const cantidad = Number(document.getElementById("cantidadIngreso").value);
+  const fecha = document.getElementById("fechaIngreso").value;
+  // const cantidadIngreso = document.getElementById("cantidadIngreso").value;
   //Validacion
   if (nombre === "" || cantidad === "" || fecha === "") {
     ui.mostrarAlerta("Ambos campos son obligatorios", "error");
@@ -259,10 +270,46 @@ async function agregarIngreso(e){
     ui.mostrarAlerta("Cantidad no válida", "error");
     return;
   }
-  //Nuevo Object Ingreso
+ 
+  //Nuevo Object Gasto
   const ingreso = { nombre, cantidad, id: Date.now(), fecha };
 
+  
+
+  //Request 
+  fetch('http://localhost:8000/ingresos', {
+    method: 'POST',
+    body: JSON.stringify({
+      nombre,
+      cantidad,
+      fecha
+    }),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+ 
+
+  //Nuevo gasto
+  presupuesto.nuevoIngreso(ingreso);
+
+  //Mensaje de que se guardo correctamente
+  ui.mostrarAlerta("Ingreso agregado correctamente");
+
+  //Imprimir los gastos
+  const { ingresos, restante } = presupuesto;
+
+  ui.mostrarGastos(ingresos);
+
+  ui.actualizarRestante(restante);
+
+  ui.comprobarPresupuesto(presupuesto);
+  //Reset del form
+  formulario.reset();
 }
+
+
 //Funcion que elimina los gastos
 function eliminarGasto(id) {
   //Elimina del objeto
