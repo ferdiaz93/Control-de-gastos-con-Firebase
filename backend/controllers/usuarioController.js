@@ -1,6 +1,7 @@
 const Usuario = require('../models/usuario');
 const Gasto = require('../models/gasto');
 const path = require('path');
+const Ingreso = require('../models/ingreso');
 
 
 exports.renderRegistro = async ( req,res ) => {
@@ -95,5 +96,41 @@ exports.obtenerUsuario = async (req, res ) => {
     const idUsuario = req.params.id;
     const usuario = await Usuario.findById(idUsuario);
     const gastos = await Gasto.find({user_id: idUsuario});
-    return res.status(200).json({usuario, gastos});
+    const ingresos = await Ingreso.find({user_id: idUsuario});
+    return res.status(200).json({usuario, gastos, ingresos});
+}
+
+exports.obtenerPresupuesto = async (req, res ) => {
+    const idUsuario = req.params.id;
+    const usuario = await Usuario.findById(idUsuario);
+    const gastos = await Gasto.find({user_id: idUsuario});
+    const ingresos = await Ingreso.find({user_id: idUsuario});
+    return res.status(200).json({usuario, gastos, ingresos});
+}
+
+exports.actualizarPresupuesto = async (req, res) => {
+    const userId = req.body.user_id;
+    const presupuesto = req.body.presupuesto;
+
+    await Usuario.findByIdAndUpdate(userId, {presupuesto});
+    let usuarioActualizado = await Usuario.findById(userId);
+
+    const gastos = await Gasto.find({user_id: userId});
+    const ingresos = await Ingreso.find({user_id: userId});
+    let restante = calcularRestante(usuarioActualizado.presupuesto, gastos, ingresos);
+    usuarioActualizado.restante = restante;
+    
+    return res.status(200).json({success: true, usuario: usuarioActualizado, mensaje: "usuario actualizado"});
+}
+
+function calcularRestante(presupuesto, gastos, ingresos) {
+    let dineroGastado = gastos.reduce(
+        (total, gasto) => total + gasto.cantidad,
+        0
+    );
+    let dineroIngresado  = ingresos.reduce(
+      (total, ingreso) => total + ingreso.cantidad,
+      0
+    );
+    return (presupuesto - dineroGastado + dineroIngresado);
 }

@@ -1,12 +1,17 @@
 const Usuario = require('../models/usuario');
 const Gasto = require('../models/gasto');
 //Cuando se cree un nuevo gasto
-exports.nuevoGasto = async( req, res, next ) => {
+exports.crearYactualizarGasto = async( req, res, next ) => {
     //Creando obj de Gasto con los datos de req.body
-        const newGasto = new Gasto(req.body);
-        await newGasto.save();
-        const gastos = await Gasto.find({user_id: req.body.user_id});
-        return res.json({gastos:gastos, mensaje: 'el gasto se agregó correctamente'});
+        const {categoria, nombre, fecha, gasto_id, cantidad} = req.body;
+        if(!gasto_id){
+            const newGasto = new Gasto(req.body);
+            await newGasto.save();
+            const gastos = await Gasto.find({user_id: req.body.user_id});
+            return res.json({gastos:gastos, mensaje: 'el gasto se agregó correctamente'})
+        }
+        const gastoEditado = await Gasto.findByIdAndUpdate(gasto_id, { categoria, nombre, fecha, cantidad });
+        return res.json({success: true, mensaje: 'Gasto actualizado'});
 }
 
 //Obtiene todos los gastos
