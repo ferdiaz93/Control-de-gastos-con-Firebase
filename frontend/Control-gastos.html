@@ -45,9 +45,6 @@
           <div class="row">
             <div class="col">
               <div class="contenido">
-                <div id="gastos">
-                  <ul class="list-group"></ul>
-                </div>
                 <div id="ingresos">
                   <ul class="list-group"></ul>
                 </div>
@@ -71,7 +68,7 @@
               <h2 class="text-center titulo-gastos">Añade tus gastos aqui</h2>
               <div class="input-group mt-5 m-4 mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">Categorias</label>
-                <select class="form-select p-2" class="categoria" id="select" name="select" required>
+                <select class="form-select p-2" class="categoria" id="categoria" name="select" required>
                   
                   <option value="0">Seleccionar..</option>
                   <option value="Super o despensa">Super o despensa</option>
@@ -112,13 +109,15 @@
                       placeholder=""
                     />
                   </div>
-                  <button type="submit" id="btnGasto" class="btn btn-success">Agregar gasto</button>
+                  <button id="btnGasto" class="btn btn-success">Agregar gasto</button>
+                  <button id="btnEditarGasto" class="btn btn-warning d-none">Modificar gasto</button>
+                  <button id="btnCancelarEditarGasto" class="btn btn-danger d-none">Cancelar</button>
                 </div>
               </form>
             </div>
             <div class="col contenido">
               <!-- FORMULARIO DE NUEVOS INGRESOS -->
-              <form id="agregar-ingreso" action="" method="">
+              <form id="agregar-ingreso">
                 <h2 class="text-center">Nuevos ingresos</h2>
                 <div class="form-group">
                   <label for="nombreIngreso">Nombre</label>
@@ -142,13 +141,20 @@
                   placeholder=""
                   />
                 </div>
-                <button type="submit" id="btnIngreso" class="btn btn-success">Agregar ingreso</button>
+                <button id="btnIngreso" class="btn btn-success">Agregar ingreso</button>
+                  <button id="btnEditarIngreso" class="btn btn-warning d-none">Modificar Ingreso</button>
+                  <button id="btnCancelarEditarIngreso" class="btn btn-danger d-none">Cancelar</button>
               </form>
               <!--.col-->
             </div>
           </div>
         <!--.row-->
-      
+        <div id="gastos">
+          <ul class="list-group" id="contenedor-gastos"></ul>
+        </div>
+        <div id="ingresos">
+          <ul class="list-group" id="contenedor-ingresos"></ul>
+        </div>
       </section>
     </div>
     <footer class="bg-dark">

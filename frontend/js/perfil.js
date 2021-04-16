@@ -1,4 +1,5 @@
 const logoutPerfil = document.querySelector(".logout");
+const emailUsuario = document.getElementById('emailPerfil');
 
 logoutPerfil.addEventListener("click", (e) => {
   e.preventDefault();
@@ -11,32 +12,13 @@ logoutPerfil.addEventListener("click", (e) => {
   });
 });
 
-// Users
-const usersList = document.querySelector("#users");
-// recibe una lista de datos
-const setupUsers = (data) => {
-  // si la lista tiene datos, entonces recorrerlos
-  if (data.length) {
-    let html = "";
-    // por cada documento que este dentro de la lista agrega al html
-    data.forEach((doc) => {
-      const user = doc.data();
-      const li = `
-      <li class="list-group-item list-group-item-action">
-        <h5>${user.name}</h5>
-        <p>${user.mail}</p>
-        <p>${user.Presupuesto}</p>
-        <p>${user.Restante}</p>
-        <p>${user.Gasto}</p>
-        </li>
-      `;
-      html += li;
-    });
-    usersList.innerHTML = html;
-  } else {
-    usersList.innerHTML = "<p>Logueate para ver los usuarios</p>";
-  }
-};
+fetch('http://localhost:8000/api/usuario/'+ idUsuario)
+.then(function(res){
+  return res.json()
+})
+.then(function(res){
+  emailUsuario.innerText = res.usuario.email;
+})
 
 // List for auth state changes
 auth.onAuthStateChanged((user) => {
@@ -52,8 +34,5 @@ auth.onAuthStateChanged((user) => {
       });
   } else {
     setupUsers([]);
-    // setTimeout(() => {
-    //   window.location = "http://localhost:8000/login";
-    // }, 3000);
   }
 });

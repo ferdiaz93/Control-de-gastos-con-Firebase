@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const usuarioSchema = new Schema ({
-
     nombre: {
         type: String,
         trim: true
@@ -18,9 +17,6 @@ const usuarioSchema = new Schema ({
     presupuesto:{
         type: Number,
         trim: true
-    },
-    gastos:{
-        type: Array
     },
     restante:{
         type: Number,

@@ -7,20 +7,30 @@ const ingresoController = require('../controllers/ingresoController');
 module.exports = function(){
     
     //Agrega nuevos gastos vía POST
-    router.post('/gastos', gastoController.nuevoGasto);
+    router.post('/gastos', gastoController.crearYactualizarGasto);
     //Obtiene todos los registros de gastos de la base de datos
     router.get('/gastos', gastoController.obtenerGastos);
     //Obtiene gastos por Id
-    router.get('/gastos/:id', gastoController.obtenerGasto);
+    router.get('/api/gastos/:id', gastoController.obtenerGasto);
     //Actualiza un gasto por su Id
     router.put('/gastos/:id', gastoController.actualizarGastos);
     //Elimina un gasto por su Id
-    router.delete('/gastos/:id', gastoController.eliminarGasto);
+    router.post('/api/gastos-delete', gastoController.eliminarGasto);
+    
+    // Obtiene ingreso por su Id
+    router.get('/api/ingreso', ingresoController.obtenerIngreso);
+    // Obtiene todos los ingresos
+    router.get('/api/ingresos', ingresoController.obtenerIngresos);
+    //Elimina un ingresoo por su Id
+    router.post('/api/ingresos-delete', ingresoController.eliminarIngreso);
+    //Agrega nuevos ingresos vía POST
+    router.post('/ingresos', ingresoController.crearYactualizarIngreso);
 
     router.get('/api/usuario/:id', usuarioController.obtenerUsuario);
+    router.get('/api/get-presupuesto/:id', usuarioController.obtenerPresupuesto);
 
-    //Agrega nuevos ingresos vía POST
-    router.post('/ingresos', ingresoController.nuevoIngreso);
+
+    router.post('/api/presupuesto', usuarioController.actualizarPresupuesto);
 
     //Rutas de vistas
 

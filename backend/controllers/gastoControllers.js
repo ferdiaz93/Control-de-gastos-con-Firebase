@@ -1,35 +1,29 @@
-const Gasto = require('../models/Gasto');
 const Usuario = require('../models/usuario');
+const Gasto = require('../models/gasto');
 //Cuando se cree un nuevo gasto
-exports.nuevoGasto = async( req, res, next ) => {
-    
+exports.crearYactualizarGasto = async( req, res, next ) => {
     //Creando obj de Gasto con los datos de req.body
-    
-    
-        const gasto = new Gasto(req.body);
-        console.log(req.session, "testeando");
-        const usuario = await Usuario.findOneAndUpdate({ email: req.session.usuarioLogueado.email },
-        {$push: {gastos: gasto}}, {
-         new: true,
-        });
-        //actualiza la sesion con el nuevo gasto
-        req.session.usuarioLogueado = usuario;
-        
-        return res.json({mensaje: 'el gasto se agregó correctamente'})
-
-   
+        const {categoria, nombre, fecha, gasto_id, cantidad} = req.body;
+        if(!gasto_id){
+            const newGasto = new Gasto(req.body);
+            await newGasto.save();
+            const gastos = await Gasto.find({user_id: req.body.user_id});
+            return res.json({gastos:gastos, mensaje: 'el gasto se agregó correctamente'})
+        }
+        const gastoEditado = await Gasto.findByIdAndUpdate(gasto_id, { categoria, nombre, fecha, cantidad });
+        return res.json({success: true, mensaje: 'Gasto actualizado'});
 }
 
 //Obtiene todos los gastos
 exports.obtenerGastos = async ( req, res, next ) => {
     try {
-        const gastos = await Gasto.find({});
-        res.json(gastos);
+        const userId = req.params.id;
+        const gastos = await Gasto.find({user_id: userId});
+        res.json({success: true, mensaje: "operacion realizada", gastos: gastos});
     } catch (error) {
         console.log(error);
         next();
     }
-
 }
 
 //Obtiene un gasto por su ID
@@ -57,8 +51,12 @@ exports.actualizarGastos = async ( req, res, next ) => {
 //Elimina un gasto por su Id
 exports.eliminarGasto = async (req, res, next ) => {
     try {
-        const gasto = await Gasto.findOneAndDelete({ _id: req.params.id });
-        res.json({ mensaje: 'El gasto fué eliminado'} );
+        const gastoId = req.body.gastoId;
+        const usuarioId = req.session.usuarioLogueado._id;
+        console.log({gastoId, usuarioId});
+        const gasto = await Gasto.findByIdAndDelete(gastoId);
+        res.json({success: true, mensaje: 'El gasto fué eliminado'});
+        // const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, { $pull: {gastos: {_id: gastoId}}});
     } catch (error) {
         console.log(error);
         next();
