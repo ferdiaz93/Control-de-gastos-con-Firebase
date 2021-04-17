@@ -3,7 +3,7 @@ const Usuario = require('../models/usuario');
 //Cuando se cree un nuevo ingreso
 exports.crearYactualizarIngreso = async( req, res, next ) => {
     //Creando obj de Ingreso con los datos de req.body
-        const {nombre, fecha, ingreso_id, cantidad} = req.body;
+        const {nombre, fecha, user_id, ingreso_id, cantidad} = req.body;
         if(!ingreso_id){
             const newIngreso = new Ingreso(req.body);
             await newIngreso.save();

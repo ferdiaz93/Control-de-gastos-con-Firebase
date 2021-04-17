@@ -13,6 +13,9 @@ const ingresoSchema = new Schema ({
     fecha:{
         type: String,
         trim: true,
+    },
+    user_id:{
+        type: String
     }
 });
 

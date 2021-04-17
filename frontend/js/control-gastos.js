@@ -277,7 +277,7 @@ function agregarGasto(e) {
   
 
   //Request 
-  fetch('http://localhost:8000/gastos', {
+  fetch('http://localhost:8000/api/gastos', {
     method: 'POST',
     body: JSON.stringify({
       categoria: categoria,
@@ -321,7 +321,7 @@ function actualizarIngresos(){
 function mostrarIngresos(ingresos) {
     contenedorIngresos.innerHTML = "";
     ingresos.forEach(ingreso => {
-      contenedoringresos.innerHTML += `
+      contenedorIngresos.innerHTML += `
       <li class='list-group-item d-flex justify-content-between align-items-center'>
          ${ingreso.nombre}<span class="badge badge-primary badge-pill p-2"> $ ${ingreso.cantidad}</span> 
          ${ingreso.fecha}<button class="btn btn-danger borrar-ingreso" id="${ingreso._id}-delete">Borrar</button>
@@ -376,18 +376,15 @@ function agregarIngreso(e) {
     return;
   }
  
-  //Nuevo Object Ingreso
-  const ingreso = { nombre, cantidad, id: Date.now(), fecha };
-
-  
 
   //Request 
-  fetch('http://localhost:8000/ingresos', {
+  fetch('http://localhost:8000/api/ingresos', {
     method: 'POST',
     body: JSON.stringify({
-      nombre,
-      cantidad,
-      fecha
+      nombre: nombre,
+      cantidad: cantidad,
+      fecha: fecha,
+      user_id: idUsuario
     }),
     headers: {
       'Accept': 'application/json',
@@ -432,7 +429,7 @@ function autoCompletarFormulario(gasto){
     let cantidad = inputCantidad.value
     let fecha = inputFecha.value
     console.log({gasto_id, categoria, nombre, cantidad, fecha})
-    fetch('/gastos', {
+    fetch('/api/gastos', {
       method: 'POST',
       body: JSON.stringify({gasto_id, categoria, nombre, cantidad, fecha}),
       headers: {
