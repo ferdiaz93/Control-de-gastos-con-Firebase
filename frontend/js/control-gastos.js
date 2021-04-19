@@ -81,7 +81,7 @@ function mostrarGastos(gastos) {
         autoCompletarFormulario(gasto);
       })
     });
-  }
+}
 
 eventListeners();
 function eventListeners() {
@@ -141,44 +141,7 @@ logout.addEventListener("click", (e) => {
 });
 
 //ENTIDADES
-class Presupuesto {
-  constructor(presupuesto) {
-    this.presupuesto = Number(presupuesto);
-    this.restante = Number(presupuesto);
-    this.ingresos = [];
-    this.gastos = [];
-  }
-  nuevoGasto(gasto) {
-    
-      this.gastos = [...this.gastos, gasto];
-      this.calcularRestante();
-  }
-  nuevoIngreso(ingreso) {
-    
-      this.ingresos = [...this.ingresos, ingreso];
-      this.calcularRestante();
-  }
-  calcularRestante() {
-    let dineroGastado = this.gastos.reduce(
-      (total, gasto) => total + gasto.cantidad,
-      0
-    );
-    let dineroIngresado  = this.ingresos.reduce(
-      (total, ingreso) => total + ingreso.cantidad,
-      0
-    );
-    this.restante = this.presupuesto + dineroIngresado - dineroGastado;
-  }
-  eliminarGasto(id) {
-    this.gastos = this.gastos.filter((gasto) => gasto.id != id);
-    this.calcularRestante();
-  }
-  eliminarIngreso(id) {
-    this.ingresos = this.ingresos.filter((ingreso) => ingreso.id != id);
-    this.calcularRestante();
-  }
-  
-}
+
 
 
 class UI {
