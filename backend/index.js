@@ -25,7 +25,7 @@ app.set('view engine', '.hbs');
 
 //Conectando a mongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/gastosDB', {
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.betmu.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,

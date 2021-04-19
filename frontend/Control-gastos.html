@@ -31,12 +31,12 @@
           <!-- LISTADO DE PRESUPUESTO Y RESTANTE -->
           <h2 class="text-center">Ingresa tu presupuesto</h2>
           <div class="form-group d-flex flex-column">
-            <form class="d-flex justify-content-center w-100" id="formPresupuesto">
+            <form class="d-flex justify-content-center w-100" id="form-presupuesto">
               <input
                 type="number"
                 name="presupuesto"
                 class="form-control w-50 input-presupuesto"
-                id="presupuesto"
+                id="input-presupuesto"
                 placeholder="Presupuesto"
               />
               <button type="submit" id="btnPresupuesto" class="btn btn-success">Agregar</button>
@@ -48,7 +48,6 @@
                 <div id="ingresos">
                   <ul class="list-group"></ul>
                 </div>
-
                 <div id="presupuesto" class="presupuesto">
                   <div class="alert alert-primary">
                     <p>Presupuesto: $ <span id="total"></span></p>
@@ -68,7 +67,7 @@
               <h2 class="text-center titulo-gastos">Añade tus gastos aqui</h2>
               <div class="input-group mt-5 m-4 mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">Categorias</label>
-                <select class="form-select p-2" class="categoria" id="categoria" name="select" required>
+                <select class="form-select p-2" class="categoria" id="select-categoria" name="select" required>
                   
                   <option value="0">Seleccionar..</option>
                   <option value="Super o despensa">Super o despensa</option>
@@ -80,14 +79,14 @@
                 </select>
               </div>
               <!-- FORMULARIO DE GASTOS -->
-              <form id="agregar-gasto">
+              <form id="form-gasto">
                 <div class="contenido">
                   <div class="form-group">
                     <label for="gasto">Nombre:</label>
                     <input
                       type=""
                       class="form-control"
-                      id="gasto"
+                      id="input-nombre-gasto"
                       placeholder="Nombre Gasto"
                     />
                   </div>
@@ -96,7 +95,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="cantidad"
+                      id="input-cantidad"
                       placeholder="Monto en $"
                     />
                   </div>
@@ -105,11 +104,11 @@
                     <input
                       type="date"
                       class="form-control"
-                      id="fecha"
+                      id="input-fecha"
                       placeholder=""
                     />
                   </div>
-                  <button id="btnGasto" class="btn btn-success">Agregar gasto</button>
+                  <button id="btnAgregarGasto" class="btn btn-success">Agregar gasto</button>
                   <button id="btnEditarGasto" class="btn btn-warning d-none">Modificar gasto</button>
                   <button id="btnCancelarEditarGasto" class="btn btn-danger d-none">Cancelar</button>
                 </div>
@@ -117,7 +116,7 @@
             </div>
             <div class="col contenido">
               <!-- FORMULARIO DE NUEVOS INGRESOS -->
-              <form id="agregar-ingreso">
+              <form id="form-ingreso">
                 <h2 class="text-center">Nuevos ingresos</h2>
                 <div class="form-group">
                   <label for="nombreIngreso">Nombre</label>
@@ -141,9 +140,9 @@
                   placeholder=""
                   />
                 </div>
-                <button id="btnIngreso" class="btn btn-success">Agregar ingreso</button>
-                  <button id="btnEditarIngreso" class="btn btn-warning d-none">Modificar Ingreso</button>
-                  <button id="btnCancelarEditarIngreso" class="btn btn-danger d-none">Cancelar</button>
+                <button id="btnAgregarIngreso" class="btn btn-success">Agregar ingreso</button>
+                <button id="btnEditarIngreso" class="btn btn-warning d-none">Modificar Ingreso</button>
+                <button id="btnCancelarEditarIngreso" class="btn btn-danger d-none">Cancelar</button>
               </form>
               <!--.col-->
             </div>
@@ -187,6 +186,6 @@
     </script>
     <!-- APP script -->
     <!-- Objet to conect to firebase Authentication-->
-    <script src="js/control-gastos.js"></script>
+    <script src="js/control-gastos-ref.js" type="module"></script>
   </body>
 </html>
